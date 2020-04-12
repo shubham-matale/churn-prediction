@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Ecommerce Dashboard &mdash; Stisla</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+{#  <link rel="stylesheet" href="/static/css/fonts.css">#}
+  <!-- CSS Libraries -->
+{#  <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">#}
+{#  <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">#}
+{#  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/static/owl.carousel.min.css">#}
+{#  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/static/owl.theme.default.min.css">#}
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+          </ul>
+          <div class="search-element">
+            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
+            <button class="btn" type="submit"><i class="fas fa-search"></i></button>
+          </div>
+        </form>
+        <ul class="navbar-nav navbar-right">
+
+          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+            <img alt="image" src="../static/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-title">Logged in 5 min ago</div>
+              <a href="features-profile.html" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Profile
+              </a>
+              <a href="features-activities.html" class="dropdown-item has-icon">
+                <i class="fas fa-bolt"></i> Activities
+              </a>
+              <a href="features-settings.html" class="dropdown-item has-icon">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="index.html">Churn Analysis</a>
+          </div>
+          <div class="sidebar-brand sidebar-brand-sm">
+            <a href="index.html">St</a>
+          </div>
+          <ul class="sidebar-menu">
+              <li class="menu-header">Dashboard</li>
+              <li class="nav-item dropdown active">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+                <ul class="dropdown-menu">
+                  <li class="active"><a class="nav-link" href="#">Choose File</a></li>
+                </ul>
+              </li>
+
+            </ul>
+
+
+        </aside>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+        <div class="section-header">
+            <h1>Uploaded Data Result </h1>
+        </div>
+
+          <div class="row">
+                  <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                          <th>Action</th>
+                              {% for data in header_list %}
+                                   <th>{{ data }}</th>
+                              {% endfor %}
+
+                          </tr>
+
+                        </thead>
+                        <tbody>
+                        {% for data in data_list %}
+                          <tr>
+                              <th><button id="{{ data[4] }}" class="btn btn-primary" onclick="GFG_Fun(this.id)">Details</button></th>
+                             <th class="d-none"><button id="openUserModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button></th>
+                          {% for i in range(0,col_len) %}
+                                <th>{{ data[i] }}</th>
+                            {% endfor %}
+                          </tr>
+
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+
+          </div>
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Churn Analysis
+        </div>
+
+      </footer>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+            <div class="table-responsive">
+                <table class="table" id="modal_table">
+
+                </table>
+            </div>
+          </div>
+          <section class="section">
+              <div class="row" style="margin-top: 10px">
+                  <div class="col-12 col-sm-12 col-lg-6">
+                      <div class="card">
+                          <div class="card-header">Chances of Leaving</div>
+                      </div>
+                      <div class="card-body">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-primary">
+                              <i class="far fa-bar-chart"></i>
+                            </div>
+                            <div class="card-wrap">
+                              <div id="percentage" class="card-body" style="font-size: 65px">
+                                10
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-12 col-sm-12 col-lg-6">
+                      <div class="card">
+                          <div class="card-header">
+                              <h4>Call Mins Spend Vs Time Interval</h4>
+                          </div>
+                          <div class="card-body">
+                              <canvas id="myChart" width="400" height="400"></canvas>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 col-sm-12 col-lg-6">
+                      <div class="card">
+                          <div class="card-header">
+                              <h4>Call Charges Spend Vs Time Interval</h4>
+                          </div>
+                          <div class="card-body">
+                              <canvas id="charge_chart" width="400" height="400"></canvas>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- General JS Scripts -->
+  <script src="/static/js/jquery-3.3.1.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="/static/js/stisla.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <!-- JS Libraies -->
+  <!-- Template JS File -->
+  <script src="/static/js/scripts.js"></script>
+  <script src="/static/js/custom.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+
+        function GFG_Fun(parameter) {
+           $.ajax({
+        url: '/getDetails?phone_number='+parameter,
+        type: 'GET',
+        //dataType: 'json', // added data type
+        success: function(res) {
+            if(res['success']==='true'){
+                data_from_api={};
+                let table = document.querySelector('#modal_table');
+                document.getElementById('modal_table').innerHTML ='';
+                let thead = table.createTHead();
+                let row = thead.insertRow();
+                let data_row = document.createElement('tr')
+                for(let data of res['data']['header_list']){
+                    console.log(data)
+                    let th = document.createElement("th");
+                    let text = document.createTextNode(data);
+                    th.appendChild(text);
+                    row.appendChild(th);
+                    data_from_api[data]='';
+                }
+                for(let data in res['data']['data_list'][0]){
+                    console.log(data)
+                    let th = document.createElement("th");
+                    let text = document.createTextNode(res['data']['data_list'][0][data]);
+                    th.appendChild(text);
+                    data_row.appendChild(th);
+                    data_from_api[res['data']['header_list'][data]]=res['data']['data_list'][0][data];
+                }
+                table.appendChild(data_row);
+                console.log(data_from_api,parseInt(data_from_api['Day Mins']));
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Day', 'Evening', 'Night'],
+                datasets: [{
+                    label: 'Mins Spent',
+                    data: [parseInt(data_from_api['Day Mins']),parseInt(data_from_api['Eve Mins']), parseInt(data_from_api['Night Mins'])],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        var ctx = document.getElementById('charge_chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Day', 'Evening', 'Night'],
+                datasets: [{
+                    label: 'Call Charge',
+                    data: [parseInt(data_from_api['Day Charge']),parseInt(data_from_api['Eve Charge']), parseInt(data_from_api['Night Charge'])],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+
+            }
+        });
+
+        document.getElementById('openUserModal').click();
+
+                }}});}    </script>
+</body>
+</html>
