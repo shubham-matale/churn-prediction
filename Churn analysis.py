@@ -125,24 +125,24 @@ from tensorflow.python.keras.models import load_model
 
 # In[14]:
 
-#
-# clf=Sequential()
-#
-#
-# # Building Layers for our ANN
-#
-# # In[15]:
-#
-#
-# #adding layers to ANN
-# clf.add(Dense(units=24,activation="relu",kernel_initializer="uniform",kernel_regularizer=regularizers.l2(0.001),input_dim=16))
-# #adding two more hidden layer to ANN
-# clf.add(Dense(units=24,activation="relu",kernel_initializer="uniform",kernel_regularizer=regularizers.l2(0.001)))
-# clf.add(Dense(units=24,activation="relu",kernel_initializer="uniform",kernel_regularizer=regularizers.l2(0.001)))
-# #adding output layer
-# clf.add(Dense(units=1,activation="sigmoid",kernel_initializer="uniform"))
-# #compiling ANN
-# clf.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
+
+clf=Sequential()
+
+
+# Building Layers for our ANN
+
+# In[15]:
+
+
+#adding layers to ANN
+clf.add(Dense(units=24,activation="relu",kernel_initializer="uniform",kernel_regularizer=regularizers.l2(0.001),input_dim=16))
+#adding two more hidden layer to ANN
+clf.add(Dense(units=24,activation="relu",kernel_initializer="uniform",kernel_regularizer=regularizers.l2(0.001)))
+clf.add(Dense(units=24,activation="relu",kernel_initializer="uniform",kernel_regularizer=regularizers.l2(0.001)))
+#adding output layer
+clf.add(Dense(units=1,activation="sigmoid",kernel_initializer="uniform"))
+#compiling ANN
+clf.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 #
 #
 # # Fitting ANN
@@ -150,17 +150,17 @@ from tensorflow.python.keras.models import load_model
 # # In[16]:
 #
 #
-# history=clf.fit(X,Y,batch_size=20,epochs=250)
-# clf.save('my_model.h5')
+history=clf.fit(X,Y,batch_size=20,epochs=250)
+clf.save('my_model.h5')
 # clf.save('model.h5')
-classifier=load_model('my_model.h5')
-prediction = classifier.predict(X_test)
+# classifier=load_model('my_model.h5')
+# prediction = classifier.predict(X_test)
 # Displaying curves of loss and accuracy during training
 
 # In[17]:
 
 # print(history.history['accuracy'])
-# prediction= clf.predict(X_test)
+prediction= clf.predict(X_test)
 print(prediction)
 
 # testScore = 0

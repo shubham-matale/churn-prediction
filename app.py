@@ -89,6 +89,26 @@ def preprocess_data():
     return X
 
 
+def preprocess_data_default():
+    upl_file = 'default.csv'
+    churn = pd.read_csv(upl_file)
+    churn.head()
+    churn.select_dtypes(exclude=[np.number]).head()
+    X = churn.iloc[:, 4:20].values
+    # Y = churn.iloc[:, 20].values
+    labelencoder_X_1 = LabelEncoder()
+    X[:, 0] = labelencoder_X_1.fit_transform(X[:, 0])
+    labelencoder_X_2 = LabelEncoder()
+    X[:, 1] = labelencoder_X_2.fit_transform(X[:, 1])
+    # labelencoder_Y = LabelEncoder()
+    # Y = labelencoder_Y.fit_transform(Y)
+    cor = churn.corr()
+    sc = StandardScaler()
+    X = sc.fit_transform(X)
+
+    return X
+
+
 @app.route('/')
 def hello():
     return render_template('index.html')
@@ -168,6 +188,45 @@ def uploader_file():
         data_list = []
         header_list = []
         dff = pd.read_csv(upl_file)
+        dff.drop(["churn"], axis=1, inplace=True)
+        dff['Stays Or Left'] = churn
+        dff['Percentage'] = percentage
+        dff.to_csv('testtest1.csv')
+        with open('testtest1.csv') as file:
+            allRead = csv.reader(file, delimiter=',')
+            lineCount = 0
+            for row in allRead:
+                print(row)
+                if lineCount == 0:
+                    header_list = row
+                    lineCount = lineCount + 1
+                else:
+                    lineCount = lineCount + 1
+                    data_list.append(row)
+        return render_template('tableview.html', data_list=data_list, col_len=len(data_list[0]),
+                               header_list=header_list)
+
+@app.route('/default', methods=['GET', 'POST'])
+def default_file():
+    if request.method == 'GET' or request.method == 'POST':
+        upl_file = "default.csv"
+        data = preprocess_data_default()
+        classifier = load_model('my_model.h5')
+        prediction = classifier.predict(data)
+        percentage = []
+        churn = []
+        for i in range(0, len(prediction)):
+            if prediction[i]>0.5:
+                churn.append('True')
+                percentage.append(prediction[i][0] * 100)
+                prediction[i] = 1
+            else:
+                churn.append('False')
+                percentage.append(prediction[i][0] * 100)
+                prediction[i] = 0
+        data_list = []
+        header_list = []
+        dff = pd.read_csv('default.csv')
         dff.drop(["churn"], axis=1, inplace=True)
         dff['Stays Or Left'] = churn
         dff['Percentage'] = percentage
